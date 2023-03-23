@@ -21,6 +21,7 @@ FlaskConsent.sendCookieConsent = function() {
     req.withCredentials = true
     req.open('POST', location.protocol + '//' + domain + port + '{{ url_for("flask_consent") }}')
     req.setRequestHeader('Content-Type', 'application/json')
+    req.setRequestHeader("X-CSRFToken", "{{ csrf_token() }}")
     req.send(JSON.stringify(data))
   })
 }
@@ -30,7 +31,7 @@ FlaskConsent.addCookieConsentBanner = function() {
   bannerElement.innerHTML = document.getElementById('flask_consent_banner').innerHTML
   bannerElement.style.position = 'fixed'
   bannerElement.style.bottom = '0'
-  bannerElement.style.Width = '100%'
+  bannerElement.style.width = '100%'
   bannerElement.classList.add('flask-consent-banner')
   bannerElement.classList.add('shadow-lg')
   bannerElement.classList.add('border-top')
